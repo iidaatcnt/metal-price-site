@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>金属買取価格 | 今日の相場</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Noto+Sans+JP:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: #1a1a2e;
+            color: white;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            text-align: center;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #00ff7f;
+            margin-bottom: 0.5rem;
+        }
+        
+        .update-time {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            color: #00bfff;
+            opacity: 0.9;
+        }
+        
+        .price-list {
+            padding: 1rem;
+        }
+        
+        .price-item {
+            background: linear-gradient(145deg, #2a2a3e, #1e1e32);
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border-left: 4px solid #00ff7f;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease;
+        }
+        
+        .price-item:active {
+            transform: scale(0.98);
+        }
+        
+        .metal-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .metal-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        
+        .metal-category {
+            font-size: 0.8rem;
+            color: #00bfff;
+            opacity: 0.8;
+        }
+        
+        .price-display {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #00ff7f;
+            text-shadow: 0 0 10px rgba(0,255,127,0.5);
+            text-align: right;
+        }
+        
+        .unit {
+            font-size: 0.9rem;
+            color: #ccc;
+            text-align: right;
+            margin-top: 0.2rem;
+        }
+        
+        .contact-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(90deg, #00ff7f, #00bfff);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.3);
+        }
+        
+        .phone-number {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #000;
+        }
+        
+        .call-button {
+            background: #000;
+            color: #00ff7f;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 700;
+            border: none;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+        
+        .call-button:active {
+            transform: scale(0.95);
+        }
+        
+        .main-content {
+            padding-bottom: 5rem;
+        }
+        
+        .quick-info {
+            background: rgba(0,255,127,0.1);
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(0,255,127,0.3);
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #00ff7f;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .price-change {
+            animation: priceUpdate 0.5s ease-in-out;
+        }
+        
+        @keyframes priceUpdate {
+            0% { background-color: rgba(0,255,127,0.3); }
+            100% { background-color: transparent; }
+        }
+        
+        .high-value {
+            border-left-color: #ffd700;
+        }
+        
+        .high-value .price-display {
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255,215,0,0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="title">🏅 金属買取価格表</div>
+        <div class="update-time">
+            <span class="status-indicator"></span>
+            <span id="updateTime">2025/06/27 14:30</span> 更新
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <div class="quick-info">
+            💡 価格は随時変動します。正確な査定はお電話でご確認ください
+        </div>
+        
+        <div class="price-list">
+            <div class="price-item high-value">
+                <div class="metal-info">
+                    <div>
+                        <div class="metal-name">🔶 銅線（光線）</div>
+                        <div class="metal-category">高価買取</div>
+                    </div>
+                    <div>
+                        <div class="price-display">¥1,280</div>
+                        <div class="unit">/ kg</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="price-item">
+                <div class="metal-info">
+                    <div>
+                        <div class="metal-name">🔸 真鍮</div>
+                        <div class="metal-category">安定需要</div>
+                    </div>
+                    <div>
+                        <div class="price-display">¥890</div>
+                        <div class="unit">/ kg</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="price-item">
+                <div class="metal-info">
+                    <div>
+                        <div class="metal-name">✨ ステンレス</div>
+                        <div class="metal-category">人気商品</div>
+                    </div>
+                    <div>
+                        <div class="price-display">¥380</div>
+                        <div class="unit">/ kg</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="price-item">
+                <div class="metal-info">
+                    <div>
+                        <div class="metal-name">🔗 鉛</div>
+                        <div class="metal-category">バッテリー等</div>
+                    </div>
+                    <div>
+                        <div class="price-display">¥320</div>
+                        <div class="unit">/ kg</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="price-item">
+                <div class="metal-info">
+                    <div>
+                        <div class="metal-name">⚪ アルミ缶</div>
+                        <div class="metal-category">大量歓迎</div>
+                    </div>
+                    <div>
+                        <div class="price-display">¥180</div>
+                        <div class="unit">/ kg</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="price-item">
+                <div class="metal-info">
+                    <div>
+                        <div class="metal-name">⚫ 鉄スクラップ</div>
+                        <div class="metal-category">基本金属</div>
+                    </div>
+                    <div>
+                        <div class="price-display">¥45</div>
+                        <div class="unit">/ kg</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="contact-bar">
+        <div class="phone-number">📞 0120-123-456</div>
+        <a href="tel:0120-123-456" class="call-button">今すぐ電話</a>
+    </div>
+
+    <script>
+        // 時刻を定期的に更新
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.getFullYear() + '/' + 
+                             String(now.getMonth() + 1).padStart(2, '0') + '/' + 
+                             String(now.getDate()).padStart(2, '0') + ' ' +
+                             String(now.getHours()).padStart(2, '0') + ':' +
+                             String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('updateTime').textContent = timeString;
+        }
+
+        // 価格更新エフェクト
+        function addPriceUpdateEffect() {
+            const priceItems = document.querySelectorAll('.price-item');
+            setInterval(() => {
+                const randomItem = priceItems[Math.floor(Math.random() * priceItems.length)];
+                randomItem.classList.add('price-change');
+                setTimeout(() => {
+                    randomItem.classList.remove('price-change');
+                }, 500);
+            }, 8000 + Math.random() * 7000);
+        }
+
+        // 初期化
+        updateTime();
+        setInterval(updateTime, 60000);
+        addPriceUpdateEffect();
+    </script>
+</body>
+</html>
